@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const ENV = {
     development: 'development',
@@ -15,17 +16,18 @@ const BUILD = {
     admin: 'admin'
 };
 
-const NODE_ENV = process.env.NODE_ENV || ENV.production;
+const NODE_ENV = process.env.NODE_ENV || ENV.development;
 const NODE_BUILD = process.env.NODE_BUILD;
 
 console.log('BUILD = ', NODE_BUILD);
 console.log('NODE_ENV = ', NODE_ENV);
 
 const dependencies = [
+    'babel-polyfill',
     'angular'
 ];
 
-module.exports = {
+const webpackConfig = {
     entry: {
         dependencies,
         test: path.resolve(__dirname, 'app/test/test.module'),
@@ -62,7 +64,7 @@ module.exports = {
                     fallback: 'style-loader',
                     use: 'css-loader'
                 })
-            },
+            }
         ]
     },
     plugins: [
@@ -82,16 +84,17 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env': {
                 // defaults the environment to development if not specified
-                NODE_ENV: JSON.stringify(NODE_ENV ||ENV.development)
+                NODE_ENV: JSON.stringify(NODE_ENV || ENV.development)
             }
         }),
-        new ExtractTextPlugin('styles.bundler.css'),
+        new webpack.ProvidePlugin({}),
+        new ExtractTextPlugin('styles.bundler.css')
     ],
     devServer: {
         port: 8090,
         contentBase: path.join(__dirname, 'public'),
         compress: true,
-        historyApiFallback: true,
+        historyApiFallback: true
     },
     watchOptions: {
         aggregateTimeout: 2000, // in ms
@@ -99,5 +102,14 @@ module.exports = {
         poll: 2000 // intervall in ms
 
     },
-    devtool: 'source-map'
+    devtool: 'source-map',
+    target: 'web'
 };
+
+if (NODE_ENV === ENV.production) {
+    webpackConfig.plugins.push(
+        new UglifyJSPlugin()
+    )
+}
+
+module.exports = webpackConfig;
