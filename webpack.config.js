@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const ENV = {
     development: 'development',
@@ -43,6 +44,27 @@ module.exports = {
         ],
         extensions: ['.js', '.json', '.css', 'html']
     },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['env']
+                    }
+                }
+            },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader'
+                })
+            },
+        ]
+    },
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
@@ -55,12 +77,26 @@ module.exports = {
                 const order2 = orders.indexOf(chunk2.names[0]);
                 return order1 - order2;
             }
-        })
+        }),
+        new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                // defaults the environment to development if not specified
+                NODE_ENV: JSON.stringify(NODE_ENV ||ENV.development)
+            }
+        }),
+        new ExtractTextPlugin('styles.bundler.css'),
     ],
     devServer: {
         port: 8090,
         contentBase: path.join(__dirname, 'public'),
         compress: true,
         historyApiFallback: true,
+    },
+    watchOptions: {
+        aggregateTimeout: 2000, // in ms
+        // aggregates multiple changes to a single rebuild
+        poll: 2000 // intervall in ms
+
     },
 };
