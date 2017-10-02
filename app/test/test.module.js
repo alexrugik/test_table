@@ -6,3 +6,8 @@ export const test = function () {
 };
 
 const arr  = [1,2,3,4].indexOf(1);
+
+
+import TestClass from './fn';
+
+new TestClass();

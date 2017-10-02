@@ -99,4 +99,5 @@ module.exports = {
         poll: 2000 // intervall in ms
 
     },
+    devtool: 'source-map'
 };
