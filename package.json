@@ -16,6 +16,7 @@
     "chai": "^4.1.2",
     "css-loader": "^0.28.7",
     "gulp": "^3.9.1",
+    "gulp-sequence": "^0.4.6",
     "gulp-util": "^3.0.8",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
@@ -38,9 +39,9 @@
     "server": "webpack-dev-server",
     "build": "webpack",
     "test": "karma start",
-    "build:development:admin": "SET NODE_ENV=development && SET NODE_BUILD=admin && webpack",
-    "build:development:buyer": "SET NODE_ENV=development && SET NODE_BUILD=buyer && webpack",
-    "build:development:vendor": "SET NODE_ENV=development && SET NODE_BUILD=vendor && webpack"
+    "build:development:admin": "SET NODE_ENV=development&& SET NODE_BUILD=admin&&webpack",
+    "build:development:buyer": "SET NODE_ENV=development&& SET NODE_BUILD=buyer&&webpack",
+    "build:development:vendor": "SET NODE_ENV=development&& SET NODE_BUILD=vendor&&webpack"
   },
   "author": "",
   "license": "ISC"

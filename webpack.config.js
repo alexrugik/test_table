@@ -8,20 +8,11 @@ const vendorConfig = require('./webpack.vendor-config');
 const buyerConfig = require('./webpack.buyer-config');
 const adminConfig = require('./webpack.admin-config');
 
-const ENV = {
-    development: 'development',
-    test: 'test',
-    production: 'production'
-};
+const ENV = require('./config.const').ENV;
+const BUILD = require('./config.const').BUILD;
 
-const BUILD = {
-    vendor: 'vendor',
-    buyer: 'buyer',
-    admin: 'admin'
-};
-
-const NODE_ENV = process.env.NODE_ENV.trim() || ENV.development;
-const NODE_BUILD = process.env.NODE_BUILD.trim() || vendor;
+const NODE_ENV = process.env.NODE_ENV || ENV.development;
+const NODE_BUILD = process.env.NODE_BUILD || BUILD.vendor;
 console.log('BUILD = ', NODE_BUILD);
 console.log('NODE_ENV = ', NODE_ENV);
 
