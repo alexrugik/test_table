@@ -1,3 +1,4 @@
+import Assets from '../assets';
 import Components from './components';
 import Services from './services';
 import VendorConfig from './vendor.config';

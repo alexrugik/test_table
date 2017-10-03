@@ -4,6 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
+const vendorConfig = require('./webpack.vendor-config');
+const buyerConfig = require('./webpack.buyer-config');
+const adminConfig = require('./webpack.admin-config');
+
 const ENV = {
     development: 'development',
     test: 'test',
@@ -12,13 +16,12 @@ const ENV = {
 
 const BUILD = {
     vendor: 'vendor',
-    bayer: 'bayer',
+    buyer: 'buyer',
     admin: 'admin'
 };
 
-const NODE_ENV = process.env.NODE_ENV || ENV.development;
-const NODE_BUILD = process.env.NODE_BUILD;
-
+const NODE_ENV = process.env.NODE_ENV.trim() || ENV.development;
+const NODE_BUILD = process.env.NODE_BUILD.trim() || vendor;
 console.log('BUILD = ', NODE_BUILD);
 console.log('NODE_ENV = ', NODE_ENV);
 
@@ -26,17 +29,17 @@ const dependencies = [
     'babel-polyfill',
     'angular',
     'angular-ui-router',
-    'angular-route',
+    'angular-route'
 ];
 
 const webpackConfig = {
     entry: {
-        dependencies,
-        vendor: path.resolve(__dirname, 'src/app/vendor/vendor.module')
+        dependencies
+        //vendor: path.resolve(__dirname, 'src/app/vendor/vendor.module')
     },
 
     output: {
-        path: path.resolve(__dirname, 'public'),
+        //path: path.resolve(__dirname, 'public'),
         filename: '[name].bundle.js',
         publicPath: '/'
     },
@@ -122,4 +125,21 @@ if (NODE_ENV === ENV.production) {
     )
 }
 
+switch (NODE_BUILD) {
+    case(BUILD.vendor): {
+        Object.assign(webpackConfig.entry, vendorConfig.entry);
+        Object.assign(webpackConfig.output, vendorConfig.output);
+        break;
+    }
+    case(BUILD.buyer): {
+        Object.assign(webpackConfig.entry, buyerConfig.entry);
+        Object.assign(webpackConfig.output, buyerConfig.output);
+        break;
+    }
+    case(BUILD.admin): {
+        Object.assign(webpackConfig.entry, adminConfig.entry);
+        Object.assign(webpackConfig.output, adminConfig.output);
+        break;
+    }
+}
 module.exports = webpackConfig;
