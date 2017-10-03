@@ -24,14 +24,15 @@ console.log('NODE_ENV = ', NODE_ENV);
 
 const dependencies = [
     'babel-polyfill',
-    'angular'
+    'angular',
+    'angular-ui-router',
+    'angular-route',
 ];
 
 const webpackConfig = {
     entry: {
         dependencies,
-        test: path.resolve(__dirname, 'app/test/test.module'),
-        test2: path.resolve(__dirname, 'app/test2/test2.module')
+        vendor: path.resolve(__dirname, 'src/app/vendor/vendor.module')
     },
 
     output: {
@@ -42,7 +43,7 @@ const webpackConfig = {
     resolve: {
         modules: [
             'node_modules',
-            path.resolve(__dirname, 'app')
+            path.resolve(__dirname, 'src')
         ],
         extensions: ['.js', '.json', '.css', 'html']
     },
@@ -64,17 +65,26 @@ const webpackConfig = {
                     fallback: 'style-loader',
                     use: 'css-loader'
                 })
+            },
+            {
+                test: /\.(html)$/,
+                use: {
+                    loader: 'html-loader',
+                    options: {
+                        attrs: [':data-src']
+                    }
+                }
             }
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: path.resolve(__dirname, 'app', 'index.html'),
+            template: path.resolve(__dirname, 'src/app', 'index.html'),
             hash: true,
             inject: true,
             chunksSortMode: (chunk1, chunk2) => {
-                const orders = ['dependencies', 'test', 'test2'];
+                const orders = ['dependencies', 'vendor'];
                 const order1 = orders.indexOf(chunk1.names[0]);
                 const order2 = orders.indexOf(chunk2.names[0]);
                 return order1 - order2;
