@@ -22,7 +22,6 @@ const webpackConfig = {
     entry: {
         dependencies
     },
-
     output: {
         filename: '[name].bundle.js',
         publicPath: '/'
@@ -92,9 +91,6 @@ const webpackConfig = {
         contentBase: path.join(__dirname, 'public'),
         compress: true,
         historyApiFallback: true,
-        watchContentBase: true,
-        //hot: true,
-        //inline: true,
         stats: {
             cached: false,
             colors: true
