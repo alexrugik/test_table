@@ -30,7 +30,8 @@ gulp.task('webpack:server', callback => {
      */
     browserSync.init({
         port: 3030,
-        proxy: 'http://localhost:8090'
+        proxy: 'http://localhost:8090',
+        open: true
     });
 
     /**
@@ -45,7 +46,7 @@ gulp.task('webpack:server', callback => {
      * run webpack dev server with own settings
      */
     const wds = new devServer(compiler, webpackConfig.devServer);
-    wds.listen(webpackConfig.devServer.port, 'localhost', function (err) {
+    wds.listen(webpackConfig.devServer.port, 'localhost', err => {
         if (err) throw new gutil.PluginError('webpack-dev-server', err);
         gutil.log(`'${gutil.colors.cyan('dev:server')}' http://localhost:8080/webpack-dev-server/index.html`);
     });
@@ -53,7 +54,7 @@ gulp.task('webpack:server', callback => {
 
 gulp.task('webpack:build', callback => {
     const webpackConfig = Object.create(getWebpackConfig(process.env.NODE_BUILD, process.env.NODE_ENV));
-    webpack(webpackConfig, function (err, stats) {
+    webpack(webpackConfig, (err, stats) => {
         if (err)
             throw new gutil.PluginError('webpack:build', err);
         gutil.log('[webpack:build] Completed\n' + stats.toString({

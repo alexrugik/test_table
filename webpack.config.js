@@ -4,9 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-const vendorConfig = require('./webpack.vendor-config');
-const buyerConfig = require('./webpack.buyer-config');
-const adminConfig = require('./webpack.admin-config');
+const webpackAppConfig = require('./webpack.app-config');
+
+const vendorConfig = webpackAppConfig.vendorConfig;
+const buyerConfig = webpackAppConfig.buyerConfig;
+const adminConfig = webpackAppConfig.adminConfig;
 
 const ENV = require('./config.const').ENV;
 const BUILD = require('./config.const').BUILD;
@@ -70,7 +72,7 @@ const webpackConfig = {
             hash: true,
             inject: true,
             chunksSortMode: (chunk1, chunk2) => {
-                const orders = ['dependencies', 'vendor', 'buyer', 'admin'];
+                const orders = ['dependencies', 'app'];
                 const order1 = orders.indexOf(chunk1.names[0]);
                 const order2 = orders.indexOf(chunk2.names[0]);
                 return order1 - order2;
