@@ -2,15 +2,13 @@ import InfoPageTemplate from  './info-page.template.html';
 
 class InfoPageController {
     constructor() {
-
     }
 
     $onInit() {
-
+        console.log('4');
     }
 
     $onDestroy() {
-
     }
 }
 

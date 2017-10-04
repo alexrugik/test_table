@@ -11,11 +11,6 @@ const adminConfig = require('./webpack.admin-config');
 const ENV = require('./config.const').ENV;
 const BUILD = require('./config.const').BUILD;
 
-const NODE_ENV = process.env.NODE_ENV || ENV.development;
-const NODE_BUILD = process.env.NODE_BUILD || BUILD.vendor;
-console.log('BUILD = ', NODE_BUILD);
-console.log('NODE_ENV = ', NODE_ENV);
-
 const dependencies = [
     'babel-polyfill',
     'angular',
@@ -26,11 +21,9 @@ const dependencies = [
 const webpackConfig = {
     entry: {
         dependencies
-        //vendor: path.resolve(__dirname, 'src/app/vendor/vendor.module')
     },
 
     output: {
-        //path: path.resolve(__dirname, 'public'),
         filename: '[name].bundle.js',
         publicPath: '/'
     },
@@ -78,7 +71,7 @@ const webpackConfig = {
             hash: true,
             inject: true,
             chunksSortMode: (chunk1, chunk2) => {
-                const orders = ['dependencies', 'vendor'];
+                const orders = ['dependencies', 'vendor', 'buyer', 'admin'];
                 const order1 = orders.indexOf(chunk1.names[0]);
                 const order2 = orders.indexOf(chunk2.names[0]);
                 return order1 - order2;
@@ -88,7 +81,7 @@ const webpackConfig = {
         new webpack.DefinePlugin({
             'process.env': {
                 // defaults the environment to development if not specified
-                NODE_ENV: JSON.stringify(NODE_ENV || ENV.development)
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV || ENV.development)
             }
         }),
         new webpack.ProvidePlugin({}),
@@ -98,7 +91,14 @@ const webpackConfig = {
         port: 8090,
         contentBase: path.join(__dirname, 'public'),
         compress: true,
-        historyApiFallback: true
+        historyApiFallback: true,
+        watchContentBase: true,
+        //hot: true,
+        //inline: true,
+        stats: {
+            cached: false,
+            colors: true
+        }
     },
     watchOptions: {
         aggregateTimeout: 2000, // in ms
@@ -110,27 +110,32 @@ const webpackConfig = {
     target: 'web'
 };
 
-if (NODE_ENV === ENV.production) {
-    webpackConfig.plugins.push(
-        new UglifyJSPlugin()
-    )
-}
+module.exports = getWebpackConfig;
 
-switch (NODE_BUILD) {
-    case(BUILD.vendor): {
-        Object.assign(webpackConfig.entry, vendorConfig.entry);
-        Object.assign(webpackConfig.output, vendorConfig.output);
-        break;
+function getWebpackConfig(build, env) {
+    switch (build) {
+        case(BUILD.vendor): {
+            Object.assign(webpackConfig.entry, vendorConfig.entry);
+            Object.assign(webpackConfig.output, vendorConfig.output);
+            break;
+        }
+        case(BUILD.buyer): {
+            Object.assign(webpackConfig.entry, buyerConfig.entry);
+            Object.assign(webpackConfig.output, buyerConfig.output);
+            break;
+        }
+        case(BUILD.admin): {
+            Object.assign(webpackConfig.entry, adminConfig.entry);
+            Object.assign(webpackConfig.output, adminConfig.output);
+            break;
+        }
     }
-    case(BUILD.buyer): {
-        Object.assign(webpackConfig.entry, buyerConfig.entry);
-        Object.assign(webpackConfig.output, buyerConfig.output);
-        break;
+
+    if (env === ENV.production) {
+        webpackConfig.plugins.push(
+            new UglifyJSPlugin()
+        )
     }
-    case(BUILD.admin): {
-        Object.assign(webpackConfig.entry, adminConfig.entry);
-        Object.assign(webpackConfig.output, adminConfig.output);
-        break;
-    }
+
+    return webpackConfig;
 }
-module.exports = webpackConfig;
