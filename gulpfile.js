@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const gutil = require('gulp-util');
 const gulpSequence = require('gulp-sequence');
 const path = require('path');
+const clean = require('gulp-clean');
 
 const ENV = require('./config.const').ENV;
 const BUILD = require('./config.const').BUILD;
@@ -14,7 +15,7 @@ const browserSync = require('browser-sync').create();
 
 //build for all modules with development mode
 gulp.task('default', callback => {
-    gulpSequence('build:vendor:dev', 'build:buyer:dev', 'build:admin:dev', callback);
+    gulpSequence('clean-folder', 'build:vendor:dev', 'build:buyer:dev', 'build:admin:dev', callback);
 });
 
 gulp.task('webpack:server:vendor', callback => {
@@ -53,7 +54,7 @@ gulp.task('webpack:server', callback => {
 });
 
 gulp.task('webpack:build', callback => {
-    const webpackConfig = Object.create(getWebpackConfig(process.env.NODE_BUILD, process.env.NODE_ENV));
+    const webpackConfig = Object.create(getWebpackConfig(   process.env.NODE_BUILD, process.env.NODE_ENV));
     webpack(webpackConfig, (err, stats) => {
         if (err)
             throw new gutil.PluginError('webpack:build', err);
@@ -145,3 +146,7 @@ gulp.task('set-admin-build', () => {
     return process.env.NODE_BUILD = BUILD.admin;
 });
 
+gulp.task('clean-folder', callback => {
+    return gulp.src('public/', {read: false})
+        .pipe(clean());
+});

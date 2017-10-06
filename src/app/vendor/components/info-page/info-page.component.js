@@ -5,7 +5,7 @@ class InfoPageController {
     }
 
     $onInit() {
-        console.log(7);
+        console.log(15);
     }
 
     $onDestroy() {

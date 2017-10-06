@@ -5,7 +5,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const webpackAppConfig = require('./webpack.app-config');
-
 const vendorConfig = webpackAppConfig.vendorConfig;
 const buyerConfig = webpackAppConfig.buyerConfig;
 const adminConfig = webpackAppConfig.adminConfig;
@@ -13,12 +12,7 @@ const adminConfig = webpackAppConfig.adminConfig;
 const ENV = require('./config.const').ENV;
 const BUILD = require('./config.const').BUILD;
 
-const dependencies = [
-    'babel-polyfill',
-    'angular',
-    'angular-ui-router',
-    'angular-route'
-];
+const dependencies = require('./dependencies');
 
 const webpackConfig = {
     entry: {

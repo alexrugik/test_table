@@ -1,0 +1,10 @@
+<div ng-bind="$ctrl.title"></div>
+<ul>
+    <li ng-repeat="tab in $ctrl.tabsConfig">
+        <span>
+            <a ui-sref="{{tab.state}}"
+               ng-bind="tab.title">
+            </a>
+        </span>
+    </li>
+</ul>

@@ -1,0 +1,16 @@
+<div>header-filter</div>
+<div>
+    <div ng-repeat="filter in $ctrl.filtersConfig.filters">
+        <label for="{{filter.label}}" ng-bind="filter.label"></label>
+        <select name="{{filter.label}}"
+                ng-model="filter.selected"
+                on-change="$ctrl.filtersConfig.callBack()">
+            <option ng-repeat="value in filter.values" value="value"></option>
+        </select>
+    </div>
+    <div>
+        <input type="text"
+               ng-model="#ctrl.textFilterConfig.searchText"
+               on-change="$ctrl.textFilterConfig.callBack()">
+    </div>
+</div>
