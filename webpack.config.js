@@ -35,6 +35,13 @@ const webpackConfig = {
                 test: /\.js$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
+                    loader: 'ng-annotate-loader'
+                }
+            },
+            {
+                test: /\.js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
                     loader: 'babel-loader',
                     options: {
                         presets: ['env']
@@ -135,10 +142,12 @@ function getWebpackConfig(build, env) {
         }
     }
 
-    if (env === ENV.production) {
+    if (env === ENV.production || env === ENV.test) {
+
         webpackConfig.plugins.push(
             new UglifyJSPlugin()
-        )
+        );
+        webpackConfig.output.publicPath = `/${build}/home/`;
     }
 
     return webpackConfig;
