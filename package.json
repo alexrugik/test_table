@@ -46,7 +46,8 @@
     "build:dev": "gulp",
     "server": "gulp webpack:server:vendor",
     "server:dev": "gulp webpack:server:vendor",
-    "test": "karma start"
+    "test": "karma start",
+    "build:prod:tomcat:copy": "gulp webpack:build:prod && gulp tomcat:copy"
   },
   "author": "",
   "license": "ISC"
