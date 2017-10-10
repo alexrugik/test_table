@@ -13,10 +13,17 @@ const devServer = require('webpack-dev-server');
 
 const browserSync = require('browser-sync').create();
 
+const apps = [BUILD.admin, BUILD.buyer, BUILD.vendor];
+
 //build for all modules with development mode
 gulp.task('default', callback => {
     gulpSequence('clean-folder', 'build:vendor:dev', 'build:buyer:dev', 'build:admin:dev', callback);
 });
+
+gulp.task('webpack:build:prod', callback => {
+    gulpSequence('clean-folder', 'build:vendor:prod', 'build:buyer:prod', 'build:admin:prod', callback);
+});
+
 
 gulp.task('webpack:server:vendor', callback => {
     gulpSequence('set-dev-env', 'set-vendor-build', 'webpack:server', callback);
@@ -54,7 +61,7 @@ gulp.task('webpack:server', callback => {
 });
 
 gulp.task('webpack:build', callback => {
-    const webpackConfig = Object.create(getWebpackConfig(   process.env.NODE_BUILD, process.env.NODE_ENV));
+    const webpackConfig = Object.create(getWebpackConfig(process.env.NODE_BUILD, process.env.NODE_ENV));
     webpack(webpackConfig, (err, stats) => {
         if (err)
             throw new gutil.PluginError('webpack:build', err);
@@ -149,4 +156,81 @@ gulp.task('set-admin-build', () => {
 gulp.task('clean-folder', callback => {
     return gulp.src('public/', {read: false})
         .pipe(clean());
+});
+
+gulp.task('tomcat:clean', calllback => {
+    const promises = apps.map(appName => {
+        return new Promise(
+            (resolve, reject) => {
+                const sourceFiles = [`./public/${appName}/.*`, `./public/${appName}/*.*`];
+                const destinationTomcatPath = `${process.env.CATALINA_HOME.replace(/\\/g, '/')}/webapps/${appName}/home`;
+                gulp
+                    .src(destinationTomcatPath, {read: false})
+                    .pipe(clean({force: true}))
+                    .on('error', reject)
+                    .on('finish', resolve);
+            });
+    });
+    Promise.all(promises)
+        .then(results => {
+            console.log('result =', results);
+            calllback();
+        });
+});
+
+gulp.task('tomcat:copy', ['tomcat:clean'], calllback => {
+    const promises = apps.map(appName => {
+        return new Promise(
+            (resolve, reject) => {
+                const sourceFiles = [`./public/${appName}/.*`, `./public/${appName}/*.*`];
+                const destinationTomcatPath = `${process.env.CATALINA_HOME.replace(/\\/g, '/')}/webapps/${appName}/home`;
+                console.log(sourceFiles);
+                console.log(destinationTomcatPath);
+                gulp
+                    .src(sourceFiles)
+                    .pipe(gulp.dest(destinationTomcatPath))
+                    .on('error', reject)
+                    .on('end', resolve)
+            });
+    });
+    Promise.all(promises)
+        .then(result => {
+            calllback();
+        });
+});
+
+gulp.task('project:clean', calllback => {
+    const promises = apps.map(appName => {
+        return new Promise((resolve, reject) => {
+            const sourceFiles = [`./public/${appName}/.*`, `./public/${appName}/*.*`];
+            const destinationProjectPath = `../kyv-webapp-${appName}/src/main/webapp/home`;
+            gulp
+                .src(destinationProjectPath, {read: false})
+                .pipe(clean({force: true}))
+                .on('error', reject)
+                .on('finish', resolve);
+        });
+    });
+
+    Promise.all(promises)
+        .then(results => {
+            calllback();
+        });
+});
+
+gulp.task('project:copy', ['project:clean'], calllback => {
+    const promises = apps.map(appName => {
+        return new Promise((resolve, reject) => {
+            const sourceFiles = [`./public/${appName}/.*`, `./public/${appName}/*.*`];
+            const destinationProjectPath = `../kyv-webapp-${appName}/src/main/webapp/home`;
+            gulp
+                .src(sourceFiles)
+                .pipe(gulp.dest(destinationProjectPath));
+        });
+    });
+
+    Promise.all(promises)
+        .then(results => {
+            calllback();
+        });
 });
