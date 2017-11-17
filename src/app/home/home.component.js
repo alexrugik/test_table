@@ -3,8 +3,7 @@ import HomePageTemplate from './home.template.html';
 
 class HomePageController {
     /* @ngInject */
-    constructor($timeout, cartService, ItemsModel) {
-        this.$timeout = $timeout;
+    constructor(cartService, ItemsModel) {
         this.cartService = cartService;
         this.ItemsModel = ItemsModel;
     }
