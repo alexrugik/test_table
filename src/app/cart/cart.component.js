@@ -1,8 +1,9 @@
-import CartPageTemplate from './cart-page.template.html';
+import CartPageTemplate from './cart.template.html';
 
 class CartPageController {
     /* @ngInject */
-    constructor() {
+    constructor(cartService) {
+        this.cartService = cartService;
     }
 
     $onInit() {
@@ -13,7 +14,7 @@ class CartPageController {
     }
 }
 
-export default angular.module('app.cart-page', [])
+export default angular.module('app.cart.cart-component', [])
     .component('appCartPage', {
         template: CartPageTemplate,
         controller: CartPageController,

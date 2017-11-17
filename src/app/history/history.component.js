@@ -1,4 +1,4 @@
-import HistoryPageTemplate from './history-page.template.html';
+import HistoryPageTemplate from './history.template.html';
 
 /* @ngInject */
 class HistoryPageController {
