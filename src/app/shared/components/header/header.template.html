@@ -1,4 +1,18 @@
-<ul>
-    <li><a ui-sref="vendor.home-page">Home page</a></li>
-    <li><a ui-sref="vendor.info-page">Home infoPage</a></li>
-</ul>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Cool APP</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li ui-sref-active="active">
+                <a ui-sref="{{$ctrl.routes.HOME}}">HOME</a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="{{$ctrl.routes.CART}}">CART</a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="{{$ctrl.routes.HISTORY}}">HISTORY</a>
+            </li>
+        </ul>
+    </div>
+</nav>

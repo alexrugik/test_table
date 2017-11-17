@@ -3,9 +3,3 @@ module.exports.ENV = {
     test: 'test',
     production: 'production'
 };
-
-module.exports.BUILD = {
-    vendor: 'vendor',
-    buyer: 'buyer',
-    admin: 'admin'
-};
