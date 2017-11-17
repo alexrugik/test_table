@@ -2,14 +2,13 @@ import TotalSumTemplate from './total-sum.template.html';
 
 class TotalSumController {
     /* @ngInject */
-    constructor() {
+    constructor($scope) {
+        $scope.$watchCollection('$ctrl.config.data', (newVal, oldVal) => {
+            this.calculateTotalSum();
+        }, true);
     }
 
-    $onInit() {
-        this.calculateTotalSum();
-    }
-
-    calculateTotalSum(data = []) {
+    calculateTotalSum() {
         this.totalSum = this.config.data
             .map(item => item[this.config.property])
             .reduce((prevValue, currentValue) => prevValue + currentValue, 0);

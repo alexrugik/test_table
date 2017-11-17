@@ -35,7 +35,7 @@ class HomePageController {
     }
 
     onAddItem(item) {
-        this.cartService.addItem(item);
+        this.cartService.addItem(Object.assign({}, item));
     }
 
     initTableConfig() {

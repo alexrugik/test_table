@@ -12,13 +12,14 @@ export const data = [
         price: 7.00
     },
     {
+        id: 2,
         name: 'meat',
         ingredients: ['bacon', 'tomato', 'mozzarella', 'ham', 'salami'],
         price:
             12.00
     },
     {
-        id: 2,
+        id: 3,
         name: 'marina',
         ingredients: ['shrimp', 'parmejano', 'tuna', 'galric'],
         price: 15.75

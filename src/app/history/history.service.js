@@ -1,4 +1,4 @@
-class CartService {
+class HistoryService {
     constructor() {
         this.__items = [];
     }
@@ -37,13 +37,8 @@ class CartService {
             this.__items.splice(index, 1);
         }
     }
-
-    resetItems() {
-        this.__items.length = 0;
-    }
-
 }
 
-export default angular.module('app.cart-page.cart-service', [])
-    .service('cartService', CartService)
+export default angular.module('app.history.history-service', [])
+    .service('historyService', HistoryService)
     .name;

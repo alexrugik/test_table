@@ -5,7 +5,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="item in $ctrl.config.data track by item.id">
+    <tr ng-repeat="item in $ctrl.config.data track by $index">
         <th scope="row"
             ng-bind="item.id">
         </th>
@@ -13,7 +13,7 @@
         <td ng-bind="item.ingredients">Otto</td>
         <td ng-bind="item.price"></td>
         <td ng-click="$ctrl.config.callback(item)">
-            <a ng-bind="$ctrl.config.callbackLabel"></a>
+            <a ng-class="{disabled: item.disabled}" ng-bind="$ctrl.config.callbackLabel"></a>
         </td>
     </tr>
     </tbody>

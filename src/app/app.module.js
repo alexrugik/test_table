@@ -8,8 +8,8 @@ import AppDependency from './app.dependency';
 import AppShared from './shared/shared.module';
 
 import CartModule from './cart/cart.module';
+import HistoryModule from './history/history.module';
 import HomePageComponent from './home/home.component';
-import HistoryPageComponent from './history/history.component';
 
 export default angular.module('app', [
     AppDependency,
@@ -20,6 +20,6 @@ export default angular.module('app', [
     AppShared,
     CartModule,
     HomePageComponent,
-    HistoryPageComponent
+    HistoryModule
 ])
     .name;

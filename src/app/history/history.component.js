@@ -2,7 +2,8 @@ import HistoryPageTemplate from './history.template.html';
 
 /* @ngInject */
 class HistoryPageController {
-    constructor() {
+    constructor(historyService) {
+        this.historyService = historyService;
     }
 
     $onInit() {
