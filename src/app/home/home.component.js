@@ -11,7 +11,8 @@ class HomePageController {
 
     $onInit() {
         this.data = [];
-        this.setData();
+        this.setData()
+            .initTableConfig();
     }
 
     setData() {
@@ -35,6 +36,17 @@ class HomePageController {
 
     onAddItem(item) {
         this.cartService.addItem(item);
+    }
+
+    initTableConfig() {
+        this.tableConfig = {
+            headerData: ['Number', 'Name', 'Ingredients separated by comma', 'Price prepended by currency\n' +
+            '            sign', ' Add to cart'],
+            data: this.data,
+            callbackLabel: 'add Item to Cart',
+            callback: this.onAddItem.bind(this)
+        };
+        return this;
     }
 }
 

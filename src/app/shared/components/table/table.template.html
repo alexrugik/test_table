@@ -1,0 +1,20 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th ng-repeat="header in $ctrl.config.headerData track by $index" ng-bind="header"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in $ctrl.config.data track by item.id">
+        <th scope="row"
+            ng-bind="item.id">
+        </th>
+        <td ng-bind="item.name"></td>
+        <td ng-bind="item.ingredients">Otto</td>
+        <td ng-bind="item.price"></td>
+        <td ng-click="$ctrl.config.callback(item)">
+            <a ng-bind="$ctrl.config.callbackLabel"></a>
+        </td>
+    </tr>
+    </tbody>
+</table>

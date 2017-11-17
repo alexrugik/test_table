@@ -7,10 +7,24 @@ class CartPageController {
     }
 
     $onInit() {
-
+        this.initTotalSumConfig();
     }
 
     $onDestroy() {
+
+    }
+
+    initTotalSumConfig() {
+        this.totalSumConfig = {
+            data: this.cartService.getItems(),
+            text: 'Here is total price:',
+            property: 'price'
+        };
+        return this;
+    }
+
+    onSaveHistory() {
+
     }
 }
 
