@@ -2,3 +2,41 @@
     <span ng-bind="$ctrl.config.text"></span>
     <span ng-bind="$ctrl.totalSum"></span>
 </div>
+
+
+<div class="ui-grid-row">
+    <div class="ui-grid-cell">
+        <div class="ui-grid-cell-contents">{{row.entity.vendorName}}</div>
+    </div>
+    <div class="ui-grid-cell">
+        <div class="ui-grid-cell-contents"><span ng-repeat="fc in row.entity.functionalCategory">{{fc}}</span></div>
+    </div>
+    <div class="ui-grid-cell">
+        <div class="ui-grid-cell-contents"><span
+                ng-repeat="rs in row.entity.relationshipStatus track by $index">{{rs}}</span></div>
+    </div>
+    <div class="ui-grid-cell">
+        <div class="ui-grid-cell-contents"><span
+                ng-repeat="ws in row.entity.workflowStatus track by $index">{{ws}}</span></div>
+    </div>
+    <div class="ui-grid-cell">
+        <div class="ui-grid-cell-contents">
+            <span ng-repeat="vro in row.entity.vro track by $index">{{vro}}</span>
+        </div>
+    </div>
+    <div class="ui-grid-cell">
+        <div class="ui-grid-cell-contents">
+            <span ng-repeat="pi in row.entity.providedIn track by $index">{{pi}}</span>
+        </div>
+    </div>
+    <div class="ui-grid-cell">
+        <div class="ui-grid-cell-contents">
+            <span ng-repeat="rrt in row.entity.relationRiskTier track by $index">{{rrt}}</span>
+        </div>
+    </div>
+    <div class="ui-grid-cell">
+        <div class="ui-grid-cell-contents">
+            <span ng-repeat="rcr in row.entity.relationCommercialRisk track by $index">{{rcr}}</span>
+        </div>
+    </div>
+</div>

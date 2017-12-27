@@ -2,7 +2,7 @@ import TotalSumTemplate from './total-sum.template.html';
 
 class TotalSumController {
     /* @ngInject */
-    constructor($scope) {
+        constructor($scope) {
         $scope.$watchCollection('$ctrl.config.data', (newVal, oldVal) => {
             this.calculateTotalSum();
         }, true);

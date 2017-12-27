@@ -55,3 +55,4 @@ export default angular.module('app.cart.cart-component', [])
         bindings: {}
     })
     .name;
+

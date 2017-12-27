@@ -9,9 +9,17 @@ class HomePageController {
     }
 
     $onInit() {
+
+        this.panelConfig = {
+            title: 'Test title',
+            informMessage: 'Some text that inform you',
+            errorMessage: 'Some Error',
+            isShowErrorMessage: () => false
+        };
+        this.testArr = [1, 2, 3];
         this.data = [];
         this.setData()
-            .initTableConfig();
+            .initTableConfig()
     }
 
     setData() {
@@ -47,6 +55,34 @@ class HomePageController {
         };
         return this;
     }
+
+    calculation() {
+        const arrayOfArray = [[1, 2], [3, 4], [[5, 6]], 77];
+        const flattened = arrayOfArray.reduce((res, a) => [...res, ...a], []);
+        console.log(flattened);
+
+        const arr = [1, 2, 3, [99, 101]];
+        const result = arr.reduce((item, acum) => {
+            console.log(item);
+            console.log(acum);
+            return [...item, ...acum];
+        }, []);
+
+        console.log(result);
+
+
+        const arr2 = ['apple', 'tea', 'banana', 'ice', 'apple', '1', '1', 1];
+
+        const result2 = arr2.reduce((acum, item, index, array) => {
+            console.log(acum);
+            console.log(item);
+            return acum.set(item, 'exist');
+        }, new Map());
+        console.log(result2);
+        console.log(result2.keys());
+
+    }
+
 }
 
 export default angular.module('app.home-page', [])
@@ -57,3 +93,4 @@ export default angular.module('app.home-page', [])
         bindings: {}
     })
     .name;
+

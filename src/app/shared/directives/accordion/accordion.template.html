@@ -1,0 +1,19 @@
+<div class="accrordion-container">
+    <h4 class="accrordion-title"
+        ng-bind="$ctrl.title">
+    </h4>
+    <button class="accordion"
+            ng-click="$ctrl.onTogglePanel()"
+            ng-class="{active: $ctrl.isActivePanel()}">
+        <label class="pull-left" ng-bind="$ctrl.informMessage"></label>
+        <label class="accordion-pull-center"
+               ng-bind="$ctrl.errorMessage"
+               ng-show="$ctrl.isShowErrorMessage()">
+            test
+        </label>
+    </button>
+    <div ng-transclude
+         class="panel"
+         ng-show="$ctrl.isActivePanel()">
+    </div>
+</div>

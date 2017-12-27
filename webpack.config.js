@@ -21,6 +21,7 @@ module.exports = {
     resolve: {
         modules: [
             'node_modules',
+            'bower_components',
             path.resolve(__dirname, 'src'),
             path.resolve(__dirname, 'src', 'assets')
         ],
@@ -118,7 +119,9 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
-            Popper: 'popper.js'
+            noUiSlider: 'nouislider/distribute/nouislider.js',
+            Popper: 'popper.js',
+            agGrid: 'ag-grid'
         }),
         new ExtractTextPlugin('styles.bundler.css')
     ],

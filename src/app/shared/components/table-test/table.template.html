@@ -1,0 +1,25 @@
+<table ng-table-dynamic="$ctrl.tableParams with $ctrl.cols" class="table" show-filter="false">
+    <colgroup>
+        <col width="20%" />
+        <col width="20%" />
+        <col width="20%" />
+    </colgroup>
+    <tr ng-repeat="row in $data">
+        <td ng-repeat="col in $columns">{{row[col.field]}}</td>
+    </tr>
+    <!--    <tr ng-repeat="user in $data">
+            <td title="'Name'" sortable="'name'">
+                {{user.name}}
+            </td>
+            <td title="'Age'" sortable="'age'">
+                {{user.age}}
+            </td>
+            <td title="'Price'" sortable="'price'">
+                {{user.price}}
+            </td>
+            <td title="'SomeData'" filter="{ someData: 'number'}" sortable="'sortData'">
+                <div ng-repeat="data in user.someData" ng-bind="data">
+                </div>
+            </td>
+        </tr>-->
+</table>

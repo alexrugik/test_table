@@ -1,9 +1,19 @@
 module.exports = [
     'babel-polyfill',
     'jquery',
+    'nouislider/distribute/nouislider.js',
     'popper.js',
     'angular',
+    'angular-ui-bootstrap',
     'angular-ui-router',
     'angular-route',
-    'bootstrap'
+    'ng-table/bundles/ng-table.js',
+    'bootstrap',
+    'angularjs-slider/dist/rzslider.js',
+    'angular-multirange-slider/dist/multirange-slider.js',
+    'angular-multi-slider/multislider.js',
+    'nouislider-angular/nouislider.js',
+    'angular-smart-table',
+    'angu-fixed-header-table/angu-fixed-header-table.js',
+    'angular-fixed-table-header',
 ];

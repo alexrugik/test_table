@@ -1,0 +1,39 @@
+button.accordion {
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    border-bottom: 1px solid #ddd;
+    background-color: white;
+}
+
+button.accordion.active, button.accordion:hover {
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+}
+
+button.accordion.active:after {
+    content: "\2212";
+}
+
+button.accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.accrordion-title {
+    padding-left: 15px;
+}
+
+.accordion-pull-center {
+    padding-left: 200px;
+}

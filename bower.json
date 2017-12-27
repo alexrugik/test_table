@@ -1,0 +1,20 @@
+{
+  "name": "app",
+  "description": "",
+  "main": "webpack.config.js",
+  "license": "ISC",
+  "homepage": "https://github.com/alexrugik/angularjs-starter",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-multirange-slider": "^1.1.1",
+    "angular-multi-slider": "^0.1.5",
+    "nouislider": "^10.1.0",
+    "angular-fixed-table-header": "^0.2.1"
+  }
+}
