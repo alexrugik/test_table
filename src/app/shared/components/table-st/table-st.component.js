@@ -52,6 +52,10 @@ class TableStController {
      * @returns {*}
      */
     extendTableHeaders(header) {
+        if ((header) instanceof Object !== true) {
+            throw new Error('for extendTableHeaders header should be object that we can expend');
+        }
+
         let extendData; //should be object that we will assign to our header
 
         switch (header.field) {
@@ -72,7 +76,11 @@ class TableStController {
                 extendData = {
                     template: `
                         <span ng-bind="data.countryCode"></span>
-                    `
+                    `,
+                    cellStyle: (params) => {
+                        return {textAlign: 'center'}
+                    },
+                    width: 90
                 };
                 break;
             }
@@ -80,27 +88,33 @@ class TableStController {
             case 'pendingRequestCount': {
                 extendData = {
                     template: `
-                        <span>
-                          <a ng-class="{
-                                         clickable: data.pendingRequestCount > 0,
-                                         badge: data.pendingRequestCount > 0
-                                       }"   
-                             ng-bind="data.pendingRequestCount">
-                          </a>
+                        <span ng-if="data.pendingRequestCount === 0" 
+                            ng-bind="data.pendingRequestCount">    
                         </span>
-                    `
+                        <a  ng-if="data.pendingRequestCount !== 0" 
+                            class="clickable badge"  
+                            ng-bind="data.pendingRequestCount">
+                        </a>
+                    `,
+                    cellStyle: (params) => {
+                        return {textAlign: 'center'}
+                    },
+                    width: 180
                 };
                 break;
             }
             //Cyber Security
             case 'bitSightRating': {
                 extendData = {
-                    width: 200,
                     template: `
                         <span>
                           <a class="badge"  ng-bind="data.pendingRequestCount" ></a>
                         </span>
-                    `
+                    `,
+                    cellStyle: (params) => {
+                        return {textAlign: 'center'}
+                    },
+                    width: 180
                 };
                 break;
             }
@@ -119,8 +133,13 @@ class TableStController {
             case 'ddqStatus': {
                 extendData = {
                     template: `
-                        <span ng-bind="data.ddqStatus"></span>
-                    `
+                        <a ng-if="data.ddqStatus !== 'Not Requested'" ui-sref="app.cart"><span  ng-bind="data.ddqStatus"></span></a>
+                        <span  ng-if="data.ddqStatus === 'Not Requested'" ng-bind="data.ddqStatus"></span>
+                    `,
+                    cellStyle: (params) => {
+                        return {textAlign: 'center'}
+                    },
+                    width: 170
                 };
                 break;
             }

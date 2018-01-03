@@ -1,6 +1,6 @@
 export const TABLE_CONFIG = {
     animateRows: true,
-    rowSelection: 'multiple',
+    rowSelection: false,
     enableSorting: true,
     angularCompileRows: true,
     angularCompileHeaders: true,
@@ -24,5 +24,8 @@ export const TABLE_CONFIG = {
             '</div>'
         }
     },
-    onSelectionChanged: null
+    onSelectionChanged: null,
+    cellStyle: () => {
+        return {color: 'red', textAlign: 'center'}
+    }
 };

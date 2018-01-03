@@ -1,7 +1,7 @@
 export default angular.module('app.vendor.run', [])
-    .run(vendorRun)
+    .run(appRun)
     .name;
 
-function vendorRun() {
+function appRun() {
 
 }
