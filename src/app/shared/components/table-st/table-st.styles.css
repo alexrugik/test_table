@@ -5,3 +5,31 @@
 .selected {
     background-color: red!important;
 }
+
+.clickable {
+    cursor: pointer;
+}
+
+.vendor-name-link {
+    color: #337ab7;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.pending-requests.badge {
+    width: 30px;
+    padding: 3px;
+    background-color: #be4030;
+}
+
+.significant-news.badge {
+    width: 30px;
+    padding: 3px;
+    background-color: #337ab7;
+}
+
+.risk-score-circle {
+    color: #cd2027;
+    padding-right: 5px;
+}

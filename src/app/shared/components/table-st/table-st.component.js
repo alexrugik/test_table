@@ -57,6 +57,7 @@ class TableStController {
         }
 
         let extendData; //should be object that we will assign to our header
+        console.log(header);
 
         switch (header.field) {
             //Vendor Name
@@ -66,8 +67,34 @@ class TableStController {
                     checkboxSelection: true,
                     pinned: 'left',
                     template: `
-                        <span ng-bind="data.vendorName" style="font-weight: bold"></span>
+                        <span ng-bind="data.vendorName" class="vendor-name-link" title="{{data.vendorName}}"></span>
                     `
+                };
+                break;
+            }
+            // # of Products/Services
+            case 'productCount': {
+                extendData = {
+                    template: `
+                        <span ng-bind="data.productCount"></span>
+                    `,
+                    cellStyle: () => {
+                        return {textAlign: 'center'};
+                    },
+                    width: 135
+                };
+                break;
+            }
+            // # of Contacts
+            case 'noOfContacts': {
+                extendData = {
+                    template: `
+                        <span ng-bind="data.noOfContacts"></span>
+                    `,
+                    cellStyle: () => {
+                        return {textAlign: 'center'};
+                    },
+                    width: 120
                 };
                 break;
             }
@@ -92,7 +119,7 @@ class TableStController {
                             ng-bind="data.pendingRequestCount">    
                         </span>
                         <a  ng-if="data.pendingRequestCount !== 0" 
-                            class="clickable badge"  
+                            class="pending-requests clickable badge"  
                             ng-bind="data.pendingRequestCount">
                         </a>
                     `,
@@ -108,10 +135,25 @@ class TableStController {
                 extendData = {
                     template: `
                         <span>
-                          <a class="badge"  ng-bind="data.pendingRequestCount" ></a>
+                          <a class="clickable">+</a> 
                         </span>
                     `,
                     cellStyle: (params) => {
+                        return {textAlign: 'center'}
+                    },
+                    width: 120
+                };
+                break;
+            }
+            // Financial Stability Score
+            case 'score': {
+                extendData = {
+                    template: `
+                        <span>
+                            <a class="clickable" ng-bind="data.score" title="Based on S&P probability of default"></a>
+                        </span>
+                    `,
+                    cellStyle: () => {
                         return {textAlign: 'center'}
                     },
                     width: 180
@@ -123,9 +165,12 @@ class TableStController {
                 extendData = {
                     template: `
                         <span>
-                          <a class="badge"  ng-bind="data.newsCount" ></a>
+                          <a class="badge clickable significant-news"  ng-bind="data.newsCount" ></a>
                         </span>
-                    `
+                    `,
+                    cellStyle: () => {
+                        return {textAlign: 'center'}
+                    }
                 };
                 break;
             }
@@ -147,8 +192,12 @@ class TableStController {
             case 'vid': {
                 extendData = {
                     template: `
-                        <span ng-bind="data.vid"></span>
-                    `
+                        <a class="clickable" ui-sref="app.questionnaire.library.request({compId: data.vid, name: header.field})">Request</a>
+                    `,
+                    cellStyle: () => {
+                        return {textAlign: 'center'}
+                    },
+                    width: 90
                 };
                 break;
             }
@@ -156,8 +205,12 @@ class TableStController {
             case 'riskScore': {
                 extendData = {
                     template: `
-                        <span ng-bind="data.riskScore"></span>
-                    `
+                        <i ng-if="data.riskScore" class="fa fa-circle risk-score-circle"></i><span ng-bind="data.riskScore"></span>
+                    `,
+                    cellStyle: () => {
+                        return {textAlign: 'center'}
+                    },
+                    width: 90
                 };
                 break;
             }
@@ -166,7 +219,11 @@ class TableStController {
                 extendData = {
                     template: `
                         <span ng-bind="data.screeningResult"></span>
-                    `
+                    `,
+                    cellStyle: () => {
+                        return {textAlign: 'center'}
+                    },
+                    width: 90
                 };
                 break;
             }
