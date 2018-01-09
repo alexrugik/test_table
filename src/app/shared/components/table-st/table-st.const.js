@@ -11,7 +11,7 @@ export const TABLE_CONFIG = {
         headerComponentParams: {
             menuIcon: 'fa-bars',
             template:
-            '<div class="ag-cell-label-container" role="presentation"' +
+            '<div class="ag-cell-label-container table-header" role="presentation"' +
             '  <span ref="eMenu" class="ag-header-icon ag-header-cell-menu-button"></span>' +
             '  <div ref="eLabel" class="ag-header-cell-label" role="presentation">' +
             '    <span ref="eSortOrder" class="ag-header-icon ag-sort-order" ></span>' +
@@ -27,5 +27,10 @@ export const TABLE_CONFIG = {
     onSelectionChanged: null,
     cellStyle: () => {
         return {color: 'red', textAlign: 'center'}
-    }
+    },
+    rowHeight: 35,
+    rowStyle: {
+        'border-bottom': '1px solid #ddd',
+    },
+    headerHeight: 50
 };

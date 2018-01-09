@@ -74,7 +74,7 @@ class TableStController {
                     template: `
                         <span ng-bind="data.vendorName" class="vendor-name-link" title="{{data.vendorName}}"></span>
                     `,
-                    cellClass: header.class,
+                    cellClass: header.class
                 };
                 break;
             }
@@ -131,10 +131,10 @@ class TableStController {
                         <span ng-if="data.pendingRequestCount === 0" 
                             ng-bind="data.pendingRequestCount">    
                         </span>
-                        <a  ng-if="data.pendingRequestCount !== 0" 
+                        <span><a  ng-if="data.pendingRequestCount !== 0" 
                             class="pending-requests clickable badge"  
                             ng-bind="data.pendingRequestCount">
-                        </a>
+                        </a></span>
                     `,
                     cellClass: header.class,
                     cellStyle: (params) => {
