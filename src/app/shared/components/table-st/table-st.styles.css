@@ -33,3 +33,11 @@
     color: #cd2027;
     padding-right: 5px;
 }
+
+.white-bg.bg {
+    background-color: #f2f2f2;
+}
+
+.white-bg {
+    background-color: #fff;
+}
